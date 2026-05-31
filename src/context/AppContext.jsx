@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import { api } from '../api/api';
 
 const AppContext = createContext();
@@ -10,15 +10,22 @@ export const useAppContext = () => {
 };
 
 export const AppProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState(() => {
-    // Загружаем из localStorage при инициализации
-    const saved = localStorage.getItem('favorites');
-    return saved ? JSON.parse(saved) : [];
-  });
   const [posts, setPosts] = useState([]);
-  // const [favorites, setFavorites] = useState([]);
+  // Загружаем из localStorage при инициализации
+  const [favorites, setFavorites] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('favorites');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Сохраняем в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   // Загрузка списка постов при монтировании
   useEffect(() => {
@@ -36,12 +43,8 @@ export const AppProvider = ({ children }) => {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  // Добавление/удаление из избранного
-  const toggleFavorite = (post) => {
+  // Мемоизированная функция добавления/удаления из избранного
+  const toggleFavorite = useCallback((post) => {
     setFavorites(prev => {
       const exists = prev.find(f => f.id === post.id);
       if (exists) {
@@ -49,18 +52,21 @@ export const AppProvider = ({ children }) => {
       }
       return [...prev, post];
     });
-  };
+  }, []);
 
-  const isFavorite = (id) => favorites.some(f => f.id === id);
+  // Мемоизированная функция проверки наличия в избранном
+  const isFavorite = useCallback((id) => {
+    return favorites.some(f => f.id === id);
+  }, [favorites]);
 
-  const value = {
+  const value = useMemo(() => ({
     posts,
     favorites,
     loading,
     error,
     toggleFavorite,
     isFavorite
-  };
+  }), [posts, favorites, loading, error, toggleFavorite, isFavorite]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
