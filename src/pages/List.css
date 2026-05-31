@@ -1,0 +1,29 @@
+.list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.list__title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.list__subtitle {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+}
+
+.list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.error {
+  padding: 2rem;
+  text-align: center;
+  color: #c0392b;
+  font-size: 1.125rem;
+}

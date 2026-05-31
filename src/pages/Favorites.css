@@ -1,0 +1,38 @@
+.favorites {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.favorites__title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.favorites__subtitle {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+}
+
+.favorites__empty {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.125rem;
+  padding: 3rem;
+}
+
+.favorites__empty a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.favorites__empty a:hover {
+  text-decoration: underline;
+}
+
+.favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
