@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import './Card.css';
 
-const Card = ({ post }) => {
+const Card = memo(({ post }) => {
   const { toggleFavorite, isFavorite } = useAppContext();
   const favorite = isFavorite(post.id);
 
@@ -23,12 +24,13 @@ const Card = ({ post }) => {
         <button 
           onClick={() => toggleFavorite(post)}
           className={`card__btn card__btn--favorite ${favorite ? 'card__btn--favorited' : ''}`}
+          aria-label={favorite ? 'Удалить из избранного' : 'Добавить в избранное'}
         >
           {favorite ? '❤️ В избранном' : '🤍 Добавить в избранное'}
         </button>
       </div>
     </div>
   );
-};
+});
 
 export default Card;
