@@ -10,8 +10,13 @@ export const useAppContext = () => {
 };
 
 export const AppProvider = ({ children }) => {
+  const [favorites, setFavorites] = useState(() => {
+    // Загружаем из localStorage при инициализации
+    const saved = localStorage.getItem('favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [posts, setPosts] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,6 +35,10 @@ export const AppProvider = ({ children }) => {
     };
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   // Добавление/удаление из избранного
   const toggleFavorite = (post) => {
