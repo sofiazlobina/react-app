@@ -1,0 +1,38 @@
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-menu__name {
+  color: #ecf0f1;
+  font-weight: 500;
+}
+
+.user-menu__login {
+  padding: 0.5rem 1rem;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.user-menu__login:hover {
+  background: #2980b9;
+}
+
+.user-menu__logout {
+  padding: 0.5rem 1rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.user-menu__logout:hover {
+  background: #c0392b;
+}
