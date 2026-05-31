@@ -1,9 +1,13 @@
 import { useAppContext } from '../context/AppContext';
-import Card from '../components/Card';
+import { Link } from 'react-router-dom';
 import './Favorites.css';
 
 const Favorites = () => {
-  const { favorites } = useAppContext();
+  const { favorites, toggleFavorite } = useAppContext();
+
+  const handleRemove = (post) => {
+    toggleFavorite(post);
+  };
 
   return (
     <div className="favorites">
@@ -11,14 +15,35 @@ const Favorites = () => {
       {favorites.length === 0 ? (
         <p className="favorites__empty">
           У вас пока нет избранных постов. 
-          <a href="/list"> Перейти к списку</a>
+          <Link to="/list"> Перейти к списку</Link>
         </p>
       ) : (
         <>
           <p className="favorites__subtitle">Всего: {favorites.length}</p>
           <div className="favorites__grid">
             {favorites.map(post => (
-              <Card key={post.id} post={post} />
+              <div key={post.id} className="card">
+                <h3 className="card__title">{post.title}</h3>
+                <p className="card__description">
+                  {post.body.length > 100 ? `${post.body.substring(0, 100)}...` : post.body}
+                </p>
+                <div className="card__meta">
+                  <span className="card__id">ID: {post.id}</span>
+                  <span className="card__userId">User ID: {post.userId}</span>
+                </div>
+                <div className="card__actions">
+                  <Link to={`/list/${post.id}`} className="card__btn card__btn--details">
+                    Подробнее
+                  </Link>
+                  <button 
+                    onClick={() => handleRemove(post)}
+                    className="card__btn card__btn--remove"
+                    aria-label="Удалить из избранного"
+                  >
+                    ❌ Удалить
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </>
