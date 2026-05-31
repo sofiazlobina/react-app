@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import UserMenu from './UserMenu';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -49,6 +50,7 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
+        <UserMenu />
       </div>
     </nav>
   );
