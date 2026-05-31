@@ -11,11 +11,19 @@
 
 
 ## Структура проекта
-src/
-├── api/              # API слой
-├── components/       # Переиспользуемые компоненты
-├── context/          # Context API (глобальное состояние)
-├── pages/            # Страницы приложения
-├── App.jsx           # Корневой компонент
-├── main.jsx          # Точка входа
-└── index.css         # Глобальные стили
+- src/
+- api/              # API слой
+- components/       # Переиспользуемые компоненты
+- context/          # Context API (глобальное состояние)
+- pages/            # Страницы приложения
+- App.jsx           # Корневой компонент
+- main.jsx          # Точка входа
+- index.css         # Глобальные стили
+
+## Запуск через StackBlitz
+1. Открыть https://stackblitz.com/github/sofiazlobina/react-app
+2. Автоматически клонируется репозиторий https://github.com/sofiazlobina/react-app
+3. Выпонить в терминале команду, если автоматически не открылось окно браузера
+   ```
+   npm run dev
+   ```
